@@ -1,0 +1,20 @@
+
+workflows:
+  android-app:
+    name: Build Neo Anime AI APK
+    environment:
+      sdk: "31"
+      java: "11"
+    scripts:
+      - name: Set version number
+        script: |
+          echo "BUILD_NUMBER=$(date +%Y%m%d%H%M)" >> $CM_ENV
+      - name: Build Debug and Release APKs
+        script: |
+          ./gradlew assembleDebug assembleRelease
+    artifacts:
+      - app/build/outputs/**/*.apk
+    publishing:
+      email:
+        recipients:
+          - your-email@example.com
